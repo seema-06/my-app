@@ -1,0 +1,20 @@
+$lt-gray: #ddd;
+$background-dark: #512DA8;
+$background-light: #9575CD;
+$background-pale: #D1C4E9;
+
+@mixin zero-margin($pad-up-down, $pad-left-right){
+    margin: 0px auto;
+    padding: $pad-up-down, $pad-left-right;
+}
+.footer{
+    background-color:$background-pale ;
+    @include zero-margin(20px,0px);
+}
+
+.btn-facebook { color:#fff!important; background-color:#3F51B5 ;}
+.btn-google-plus { color:#fff!important; background-color:red ;}
+.btn-linkedin { color:#fff!important; background-color:#085cbb ;}
+.btn-twitter { color:#fff!important; background-color:#00BCD4 ;}
+.btn-youtube { color:#fff!important; background-color:red ;}
+.btn-mail{ color:#fff!important; background-color:black ;}

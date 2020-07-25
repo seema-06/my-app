@@ -1,0 +1,16 @@
+
+$primary: blue;
+$info: grey;
+$success: green;
+
+
+
+.btn-primary {
+    background-color: $primary;
+}
+.btn-info {
+    background-color: $info;
+}
+.btn-success {
+    background-color: $success;
+}

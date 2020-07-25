@@ -12,4 +12,14 @@ export class DishService {
   getDishes(): Dish[] {
     return DISHES;
   }
+
+  // specific dish
+  getDish(id: string): Dish {
+return DISHES.filter((dish) => ( dish.id === id ))[0];
+  }
+
+  // featured property which have been added that dish
+  getFeaturedDish(): Dish {
+    return DISHES.filter((dish) =>  dish.featued )[0];
+  }
 }
