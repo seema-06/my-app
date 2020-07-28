@@ -6,7 +6,15 @@ import {MatListModule } from '@angular/material/list';
 import {MatGridListModule } from '@angular/material/grid-list';
 import {MatCardModule } from '@angular/material/card';
 import {MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { FlexLayoutModule} from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import {MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AppComponent } from './app.component';
 
 import 'hammerjs';
@@ -22,6 +30,8 @@ import { DishService } from './services/dish.service';
 import { PramotionService } from './services/pramotion.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
+import { LoginComponent } from './login/login.component';
+
 
 
 @NgModule({
@@ -33,21 +43,34 @@ import { AppRoutingModule } from './app-routing/app-routing.module';
     FooterComponent,
     HomeComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     MatToolbarModule,
     MatListModule,
     MatGridListModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatSlideToggleModule
+
   ],
   providers: [
     DishService
+  ],
+  entryComponents: [
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })
