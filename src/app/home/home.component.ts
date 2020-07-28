@@ -17,8 +17,14 @@ export class HomeComponent implements OnInit {
     private pramotionService: PramotionService) { }
 
   ngOnInit() {
-    this.dish = this.dishService.getFeaturedDish();
-    this.pramotion = this.pramotionService.getFeaturedPramotion();
+    // this.dish = this.dishService.getFeaturedDish();
+    this.dishService.getFeaturedDish()
+    .then(dish => this.dish = dish );
+
+   // this.pramotion = this.pramotionService.getFeaturedPramotion();
+    this.pramotionService.getFeaturedPramotion()
+    .then(pramotion => this.pramotion = pramotion );
+
   }
 
 

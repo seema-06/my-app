@@ -10,18 +10,18 @@ export class PramotionService {
 
   constructor() { }
 
-  getPramotions(): Pramotion [] {
-    return PRAMOTIONS;
+  getPramotions(): Promise <Pramotion []> {
+    return  Promise.resolve(PRAMOTIONS);
   }
 
   // specific dish
-  getPramotion(id: string): Pramotion {
-return PRAMOTIONS.filter((pramo) => ( pramo.id === id ))[0];
+  getPramotion(id: string): Promise< Pramotion> {
+return  Promise.resolve(PRAMOTIONS.filter((pramo) => ( pramo.id === id ))[0]);
   }
 
   // featured property which have been added that dish
-  getFeaturedPramotion(): Pramotion {
-    return PRAMOTIONS.filter((pramo) =>  pramo.featued )[0];
+  getFeaturedPramotion(): Promise<Pramotion> {
+    return  Promise.resolve(PRAMOTIONS.filter((pramo) =>  pramo.featued )[0]);
   }
 }
 
