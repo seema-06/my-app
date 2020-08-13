@@ -15,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import {MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { AppComponent } from './app.component';
 
 import 'hammerjs';
@@ -28,9 +29,12 @@ import { ContactComponent } from './contact/contact.component';
 
 import { DishService } from './services/dish.service';
 import { PramotionService } from './services/pramotion.service';
+import { LeaderService } from './services/leader.service';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { LoginComponent } from './login/login.component';
+import { from } from 'rxjs';
+import { HighlightDirective } from './directives/highlight.directive';
 
 
 
@@ -44,7 +48,8 @@ import { LoginComponent } from './login/login.component';
     HomeComponent,
     AboutComponent,
     ContactComponent,
-    LoginComponent
+    LoginComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,8 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatCheckboxModule,
     MatSelectModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [

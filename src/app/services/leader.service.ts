@@ -1,39 +1,42 @@
 import { Injectable } from '@angular/core';
-import { Dish } from '../shared/dish';
-import { DISHES } from '../shared/dishes';
+import { Leader } from '../shared/leader';
+import { LEADERS } from '../shared/leaders';
 import { promise } from 'protractor';
 import { resolve } from 'url';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class DishService {
+export class LeaderService {
 
   constructor() { }
 
-  getDishes(): Promise<Dish[]> {
+  getLeaders(): Promise<Leader[]> {
     // tslint:disable-next-line: no-shadowed-variable
     return new Promise (resolve => {
       //   server latency with 2 sec delay
-      setTimeout(() => resolve(DISHES), 2000);
+      setTimeout(() => resolve(LEADERS), 2000);
     });
   }
 
   // specific dish
-  getDish(id: string): Promise<Dish> {
+  getLeader(id: string): Promise<Leader> {
 // tslint:disable-next-line: no-shadowed-variable
 return new Promise (resolve => {
   //   server latency with 2 sec delay
-  setTimeout(() => resolve(DISHES.filter((dish) => ( dish.id === id ))[0]), 2000 );
+  setTimeout(() => resolve(LEADERS.filter((leader) => ( leader.id === id ))[0]), 2000 );
 });
   }
 
   // featured property which have been added that dish
-  getFeaturedDish(): Promise<Dish > {
+  getFeaturedLeader(): Promise<Leader > {
     // tslint:disable-next-line: no-shadowed-variable
     return new Promise (resolve => {
       //   server latency with 2 sec delay
-      setTimeout(() => resolve(DISHES.filter((dish) =>  dish.featued )[0]), 2000 );
+      setTimeout(() => resolve(LEADERS.filter((leader) =>  leader.featued )[0]), 2000 );
     });
   }
 }
+

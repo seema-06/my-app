@@ -1,11 +1,23 @@
 import { Component, OnInit , ViewChild } from '@angular/core';
 import { FormBuilder , FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
+import { flyInout } from '../animation/app-animations';
 
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  styleUrls: ['./contact.component.scss'],
+
+  // for route animation
+    // tslint:disable-next-line: use-host-property-decorator
+    host: {
+      '[@flyInout]': 'true',
+      'style': 'display: block;'
+    },
+    animations: [
+      flyInout()
+    ]
+
 })
 export class ContactComponent implements OnInit {
 feedbackform: FormGroup;

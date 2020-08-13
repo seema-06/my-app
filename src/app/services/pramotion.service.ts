@@ -11,17 +11,29 @@ export class PramotionService {
   constructor() { }
 
   getPramotions(): Promise <Pramotion []> {
-    return  Promise.resolve(PRAMOTIONS);
+     return new Promise (resolve => {
+      //   server latency with 2 sec delay
+      setTimeout(() => resolve(PRAMOTIONS), 2000);
+    });
+  //  return  Promise.resolve(PRAMOTIONS);
   }
 
   // specific dish
   getPramotion(id: string): Promise< Pramotion> {
-return  Promise.resolve(PRAMOTIONS.filter((pramo) => ( pramo.id === id ))[0]);
+    return new Promise (resolve => {
+      //   server latency with 2 sec delay
+      setTimeout(() => resolve(PRAMOTIONS.filter((pramo) => ( pramo.id === id ))[0]), 2000 );
+    });
+// return  Promise.resolve(PRAMOTIONS.filter((pramo) => ( pramo.id === id ))[0]);
   }
 
   // featured property which have been added that dish
   getFeaturedPramotion(): Promise<Pramotion> {
-    return  Promise.resolve(PRAMOTIONS.filter((pramo) =>  pramo.featued )[0]);
+    return new Promise (resolve => {
+      //   server latency with 2 sec delay
+      setTimeout(() => resolve(PRAMOTIONS.filter((pramo) =>  pramo.featued )[0]), 2000 );
+    });
+  //  return  Promise.resolve(PRAMOTIONS.filter((pramo) =>  pramo.featued )[0]);
   }
 }
 
