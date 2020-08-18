@@ -3,37 +3,39 @@ import { Dish } from '../shared/dish';
 import { DISHES } from '../shared/dishes';
 import { promise } from 'protractor';
 import { resolve } from 'url';
+import { Observable, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { baseURL } from '../shared/baseurl';
+import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishService {
 
-  constructor() { }
+  constructor(private http: HttpClient,
+    private processHTTPMsgService: ProcessHTTPMsgService) { }
 
-  getDishes(): Promise<Dish[]> {
-    // tslint:disable-next-line: no-shadowed-variable
-    return new Promise (resolve => {
-      //   server latency with 2 sec delay
-      setTimeout(() => resolve(DISHES), 2000);
-    });
+  getDishes(): Observable<Dish[]> {
+    return this.http.get<Dish[]>(baseURL + 'dishes')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
-  // specific dish
-  getDish(id: string): Promise<Dish> {
-// tslint:disable-next-line: no-shadowed-variable
-return new Promise (resolve => {
-  //   server latency with 2 sec delay
-  setTimeout(() => resolve(DISHES.filter((dish) => ( dish.id === id ))[0]), 2000 );
-});
+  getDish(id: number): Observable<Dish> {
+    return this.http.get<Dish>(baseURL + 'dishes/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
-  // featured property which have been added that dish
-  getFeaturedDish(): Promise<Dish > {
-    // tslint:disable-next-line: no-shadowed-variable
-    return new Promise (resolve => {
-      //   server latency with 2 sec delay
-      setTimeout(() => resolve(DISHES.filter((dish) =>  dish.featued )[0]), 2000 );
-    });
+  getFeaturedDish(): Observable<Dish> {
+    return this.http.get<Dish[]>(baseURL + 'dishes?featued=true').pipe(map(dishes => dishes[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
+
+  getDishIds(): Observable<number[] | any> {
+    return this.getDishes().pipe(map(dishes => dishes.map(dish => dish.id)))
+      .pipe(catchError(error => error));
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Inject} from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { Pramotion } from '../shared/pramotion';
@@ -28,22 +28,25 @@ export class HomeComponent implements OnInit {
   dish: Dish;
   pramotion: Pramotion;
   leader: Leader;
+  dishErrMess: string;
 
   constructor(private dishService: DishService,
     private pramotionService: PramotionService,
-    private leaderService: LeaderService) { }
+    private leaderService: LeaderService,
+    @Inject('BaseURL') private BaseURL ) { }
 
   ngOnInit() {
     // this.dish = this.dishService.getFeaturedDish();
     this.dishService.getFeaturedDish()
-    .then(dish => this.dish = dish );
+    .subscribe(dish => this.dish = dish,
+      errmess => this.dishErrMess = <any>errmess );
 
    // this.pramotion = this.pramotionService.getFeaturedPramotion();
     this.pramotionService.getFeaturedPramotion()
-    .then(pramotion => this.pramotion = pramotion );
+    .subscribe(pramotion => this.pramotion = pramotion );
 
     this.leaderService.getFeaturedLeader()
-    .then( leader => this.leader = leader );
+    .subscribe( leader => this.leader = leader );
 
 
   }
