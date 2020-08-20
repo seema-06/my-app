@@ -24,7 +24,13 @@ fxLayoutGap="10px">
          <p>{{dish.description}}</p>
          </mat-card-content>
          </mat-card>
-
+         <div fxFlex [hidden]= "pramotion || pramoErrMess">
+          <mat-spinner></mat-spinner><h4>Loding...</h4>
+        </div>
+        <div fxFlex *ngIf="pramoErrMess">
+          <h2>Error</h2>
+          <h4>{{pramoErrMess}}</h4>
+        </div>
          
 <mat-card *ngIf="pramotion" fxFlex [@expand]>
   <mat-card-header>
@@ -33,12 +39,18 @@ fxLayoutGap="10px">
   <h3>{{pramotion.name | uppercase }}</h3>
   </mat-card-title>
   </mat-card-header>
-        <img mat-card-image src='{{ pramotion.image}}' alt={{pramotion.name}}>
+        <img mat-card-image src='{{ BaseURL + pramotion.image}}' alt={{pramotion.name}}>
        <mat-card-content>
          <p>{{pramotion.description}}</p>
          </mat-card-content>
          </mat-card>
-                  
+         <div fxFlex [hidden]= "leader || leaderErrMess">
+          <mat-spinner></mat-spinner><h4>Loding...</h4>
+        </div>
+        <div fxFlex *ngIf="leaderErrMess">
+          <h2>Error</h2>
+          <h4>{{leaderErrMess}}</h4>
+        </div>
 <mat-card *ngIf="leader" fxFlex [@expand]>
   <mat-card-header>
     <div mat-card-avatar></div>
@@ -46,7 +58,7 @@ fxLayoutGap="10px">
   <h3>{{leader.name | uppercase }}</h3>
   </mat-card-title>
   </mat-card-header>
-        <img mat-card-image src="{{leader.image}}" alt={{leader.name}}>
+        <img mat-card-image src="{{BaseURL +leader.image}}" alt={{leader.name}}>
        <mat-card-content>
          <p>{{leader.description}}</p>
          </mat-card-content>

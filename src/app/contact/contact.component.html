@@ -34,10 +34,10 @@
     </div>
   </div>
   
-  <div fxFlex fxFlexOffset="20" class="form-size">
-<p>{{ feedbackform.value | json }} {{ feedbackform.status | json }}</p>
+ <div fxFlex fxFlexOffset="20px" class="form-size" (ngSubmit)="onSubmit()" *ngIf="showForm" [@expand]>
     <h3>Send us your Feedback</h3>
-    <form novalidate [formGroup]="feedbackform" #fform="ngForm" (ngSubmit)="onSubmit()">
+
+    <form novalidate [formGroup]="feedbackForm" #fform="ngForm">
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
@@ -60,23 +60,37 @@
       </p>
       <table class="form-size">
         <td>
-          <mat-slide-toggle formControlName="agree">May we contact you</mat-slide-toggle>
+          <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
         </td>
         <td>
-           <mat-select placeholder="How?" formControlName="contacttype">
-          <mat-option *ngFor="let ctype of contactType" [value]="ctype">
-          {{ctype}}
-          </mat-option>
+          <mat-select placeholder="How?" formControlName="contacttype">
+            <mat-option *ngFor="let ctype of contactType" [value]="ctype">
+              {{ ctype }}
+            </mat-option>
           </mat-select>
         </td>
-      </table>
-        <p>
-          <mat-form-field class="full-width">
-          <textarea matInput formControlName="message" placeholder="your feedback" rows=12></textarea>
-          </mat-form-field>
-        </p>
-        <button  type="submit" [disabled] = "feedbackform.invalid" mat-button class="background-primary">Submit</button>
-         
-      </form>
-    </div>
+        </table>
+      <p>
+        <mat-form-field class="full-width">
+          <textarea matInput formControlName="message" placeholder="Your Feedback" rows=12></textarea>
+        </mat-form-field>
+      </p>
+      <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid" (click)="onSubmit()">Submit</button>
+    </form>
+  </div>
+
+  <div fxFlex [hidden]="showForm || submitted" [@expand]>
+    <h3>Submitting Form</h3>
+    <mat-spinner></mat-spinner>
+  </div>
+  <div fxFlex *ngIf="submitted" [@expand]>
+    <h3>Your Submission</h3>
+      <p>First Name: {{submitted.firstname}}</p>
+      <p>Last Name: {{submitted.lastname}}</p>
+      <p>Tel. Number: {{submitted.telnum}}</p>
+      <p>Email: {{submitted.email}}</p>
+      <p>Contact You?: {{submitted.agree}}</p>
+      <p>How?: {{submitted.contacttype}}</p>
+      <p>Feedback: {{submitted.message}}</p>
+  </div>
   </div>

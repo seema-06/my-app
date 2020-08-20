@@ -5,9 +5,11 @@ import { promise } from 'protractor';
 import { resolve } from 'url';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
+import { ProcessHTTPMsgService } from './process-httpmsg.service';
+
 
 
 
@@ -15,34 +17,35 @@ import { baseURL } from '../shared/baseurl';
   providedIn: 'root'
 })
 export class LeaderService {
+  constructor(private http: HttpClient,
+    private processHTTPMsgService: ProcessHTTPMsgService) { }
 
-  constructor(private http: HttpClient) { }
-
-
-  // getLeaders(): Observable<Leader[]> {
-  //   return this.http.get<Leader[]>(baseURL + 'leaders');
-  // }
-
-  // getLeader(id: number): Observable<Leader> {
-  //   return this.http.get<Leader>(baseURL + 'leader/' + id);
-  // }
-
-  // getFeaturedLeader(): Observable<Leader> {
-  //   return this.http.get<Leader[]>(baseURL + 'leader?featued=true').pipe(map(leader => leader[0]));
-  // }
-
-
-  getLeaders(): Observable<Leader[]> {
-    return of(LEADERS).pipe(delay(2000));
+    getLeaders(): Observable<Leader[]> {
+    return this.http.get<Leader[]>(baseURL + 'leadership')
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getLeader(id: number): Observable<Leader> {
-    return of(LEADERS.filter((leader) => (leader.id === id))[0]).pipe(delay(2000));
+    return this.http.get<Leader>(baseURL + 'leadership/' + id)
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getFeaturedLeader(): Observable<Leader> {
-    return of(LEADERS.filter((leader) => leader.featued)[0]).pipe(delay(2000));
+    return this.http.get<Leader[]>(baseURL + 'leadership?featued=true').pipe(map(leadership => leadership[0]))
+      .pipe(catchError(this.processHTTPMsgService.handleError));
   }
+
+  // getLeaders(): Observable<Leader[]> {
+  //   return of(LEADERS).pipe(delay(2000));
+  // }
+
+  // getLeader(id: number): Observable<Leader> {
+  //   return of(LEADERS.filter((leader) => (leader.id === id))[0]).pipe(delay(2000));
+  // }
+
+  // getFeaturedLeader(): Observable<Leader> {
+  //   return of(LEADERS.filter((leader) => leader.featued)[0]).pipe(delay(2000));
+  // }
 
 //   getLeaders(): Promise<Leader[]> {
 //     // tslint:disable-next-line: no-shadowed-variable
